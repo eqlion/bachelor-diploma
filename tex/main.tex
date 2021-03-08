@@ -1,0 +1,61 @@
+%% Преамбула TeX-файла
+
+% 1. Стиль и язык
+\documentclass[liberation]{G7-32}
+
+% Остальные стандартные настройки убраны в preamble.inc.tex.
+\include{preamble.inc}
+
+% Настройки листингов.
+\usepackage{local-minted}
+
+% Полезные макросы листингов.
+\include{macros.inc}
+
+% Стиль титульного листа и заголовки
+
+
+\begin{document}
+  % \include{00-title}
+  % Предварительные приготовления
+%   \include{01-prepare}
+
+  \frontmatter % выключает нумерацию ВСЕГО; здесь начинаются ненумерованные главы: реферат, введение, глоссарий, сокращения и прочее.
+
+  % \maketitle %создает титульную страницу
+
+  %\listoffigures                         % Список рисунков
+
+  %\listoftables                          % Список таблиц
+
+  %\NormRefs % Нормативные ссылки
+  % Команды \breakingbeforechapters и \nonbreakingbeforechapters
+  % управляют разрывом страницы перед главами.
+  % По-умолчанию страница разрывается.
+
+  % \nobreakingbeforechapters
+  % \breakingbeforechapters
+
+  \tableofcontents
+
+  \printnomenclature % Автоматический список сокращений
+
+  \include{12-intro}
+
+  \mainmatter % это включает нумерацию глав и секций в документе ниже
+
+  % \include{20-research}
+
+  \backmatter %% Здесь заканчивается нумерованная часть документа и начинаются ссылки и
+
+  % \include{50-conclusion} %% заключение
+
+
+  \include{60-biblio}
+
+
+  \appendix % Тут идут приложения
+
+%   \include{70-appendix1}
+
+\end{document}
