@@ -58,24 +58,53 @@
 % Существуют различные техники модуляции интенсивности, некоторые из них будут рассмотрены ниже.
 
 \begin{enumerate}
-    \item затемнение (dimming). В~\cite{Zukauskas2002} было показано, что для разных действий необходимы разные уровни яркости освещения. Например, освещение в интервале $30-100$ лк обычно является достаточным для освещения общественных мест. С другой стороны, для освещения офисов и домов необходима освещённость порядка $300-1000$ лк. 
-\item 
+    \item затемнение\footnote{dimming}. В~\cite{Zukauskas2002} было показано, что для разных действий необходимы разные уровни яркости освещения. Например, освещение в интервале $30-100$ лк обычно является достаточным для освещения общественных мест. С другой стороны, для освещения офисов и домов необходима освещённость порядка $300-1000$ лк. Благодаря развитию технологии светодиодных драйверов, становится возможно затемнять светодиоды до любого необходимого уровня в зависимости от применения и требований по сохранению энергии;
+    \item смягчение мерцания\footnote{flicker mitigation}. Для системы коммуникации по видимому свету необходимо, чтобы человек не замечал мерцание яркости света. В~\cite{Berman1991} было показано, что мерцание может вызывать серьезные физиологические последствия у людей. Поэтому, необходимо модулировать свет с более высокой частотой, чем частота, которую может воспринимать человеческий глаз. В стандарте IEEE 802.15.7~\cite{IEEE2018} предложено использовать модуляцию интенсивности с частотой выше 200 Гц для избежания вреда для здоровья. 
 \end{enumerate}
 
+Рассмотрим четыре типа модуляции, которые применяются в VLC: 
 
-% It was suggested in [17] that different levels
-% of illuminance is required when performing different types
-% of activities. As an example, an illuminance in the range of
-% 30–100 lux is often enough for simple visual tasks performed
-% in most public places. On the other hand, office or residential applications require higher level of illuminance in the
-% range of 300–1000 lux. With the advancements in LED driver
-% circuits, it has become possible to dim an LED to an arbitrary level depending on the application requirement to save
-% energy.
-% If an LED can be dimmed to an arbitrary level, it is also
-% necessary to understand its impact on the human perceived
-% light. It was first shown in [33] that the relation between
-% the measured light and the perceived light is non-linear. This
-% property is shown in Fig. 12. In other words, a human eye adapts
-% to lower illumination by enlarging the pupil to allow more light
-% to enter the eye. The perceived light can be calculated [33] from
-% the measured light as
+\Abbrev{ИМ}{импульсная модуляция}
+\Abbrev{CSM}{color shift modulation}
+
+\begin{enumerate}
+    \item On-Off Keying (OOK);
+    \item импульсная модуляция (ИМ);
+    \item мультиплексирование с ортогональным частотным разделением каналов;
+    \item color shift modulation (CSM);
+\end{enumerate}
+
+\subsection{On-Off Keying}
+
+\Abbrev{NRZ}{non-return-to-zero [on-off-keying]}
+
+В OOK биты данных 1 и 0 передаются включением и выключением светодиода соответственно. В выключенном состоянии светодиод не выключен до конца, но интенсивность его излучения уменьшена. К преимуществам OOK относят простоту реализации. Схожая модуляция используется в волоконных коммуникациях. Большинство ранних работ с использованием OOK в VLC использовали белый светодиод. Если используется синий светодиод с фосфором, то его пропускная способность сильно ограничена (в связи с временем релаксации \--- несколько МГц~\cite{Grubor2007}). Было предложено~\cite{Park2007} использовать <<не возвращающийся к нулю>>\footnote{non-return-to-zero (NRZ)} OOK с синим светодиодом, то можно достичь пропускной способности порядка десятков Мб/с. Помимо этого, можно использовать~\cite{Grubor2007} синий фильтр, чтобы из сигнала медленно реагирующий жёлтый фосфор, в результате чего повысив скорость передачи данных до 40 Мб/c. Аналогично в~\cite{Minh2008,Vucic2009} было предложено комбинирование синего фильтра и аналогового выравнивания на приёмнике для достижения скорости передачи данных 100 и 125 Мб/с соответственно. В~\cite{Vucic2010} было показано, что производительность можно увеличить при помощи лавинных фотодиодов (а не p-i-n фотодиод) в качестве приёмника. Достижимая скорость передачи данных с лавинным фотодиодом и NRZ-OOK составила около 230 Мб/с~\cite{Vucic2010}. В~\cite{Fujimoto2013} использовался RGB светодиод (который лишен основного недостатка фосфорных светодиодов \--- ограничения частоты модуляции из-за времени релаксации). Однако в этой работе модуляция происходила только по одному цветовому каналу \--- красному, в то время как остальные были использованы для создания постоянного белого освещения. Полученная система достигла скорости передачи данных 477 Мб/с с простой NRZ-OOK модуляцией и p-i-n фотодиодным приёмником. 
+
+\subsection{Методы импульсной модуляции}
+
+\Abbrev{PWM (pulse width modulation)}{модуляция длительности импульса}
+\Abbrev{PPM (pulse position modulation)}{фазово-амплитудная модуляция}
+
+Несмотря на то, что OOK имеет ряд преимуществ (простота и лёгкость реализации), оно имеет значительное ограничение \--- низкая скорость передачи данных. Поэтому были разработаны альтернативные методы модуляции, которые основаны на длительности (PWM) и положении импульса (PPM). 
+
+
+\subsubsection{Модуляция длительности импульса}
+
+PWM является эффективным способом модуляции при помощи затемнения. При PWM длительность импульсов выбирается исходя из желаемого уровня затемнения, в то время как сами импульсы несут модулированный сигнал. Этот сигнал передается в импульсе, во время которого светодиод работает на полной мощности. В~\cite{Sugiyama2007} было показано, что затемнение от $0\%$ до $100\%$ может быть получено с высокой частотой PWM. Одним из преимуществ PWM является возможность достижения затемнения без изменения интенсивности импульсов, что не приводит к изменению цвета (что может происходить в OOK). К ограничениям PWM можно отнести ограниченную скорость передачи данных (4.8 Кб/с в~\cite{Sugiyama2007}). Для 
+
+% To overcome this limitation, [44] proposed
+% to combine PWM with Discrete Multitone (DMT) for joint
+% dimming control and communication. The approach decouples
+% the dimming based on PWM and communication based on
+% DMT on the transmitter side. As shown in Fig. 13, the bitstream
+% is divided and mapped to symbols using Quadrature Amplitude
+% Modulation (QAM). These QAM symbols are transmitted on
+% different DMT subcarriers that are spaced by 1/T in frequency
+% where T is the duration of one symbol. The DMT signal x(t) is
+% combined with PWM square wave signal p(t) where the duty
+% cycle is dependent on desired level of dimming. The resultant
+% signal y(t) = x(t)p(t) is shown in Fig. 13. It was also shown
+% that dimming constraint limits the achievable throughput due to
+% high Bit Error Rate (BER). Authors in [46] also used QAM on
+% DMT subcarriers to achieve a link rate of 513 Mbps, however,
+% it does not address the issue of LED dimming.
