@@ -27,6 +27,14 @@ def inv_r_squared(x, a, b, c):
     return a / (x+b) ** 2+c
 
 
+def create_table(x, y):
+    result = []
+    for xi, yi, i in zip(x, y, range(len(x))):
+        s = "${}$ & ${}$ & ${:.2e}$ \\\\ \\hline".format(i+1, xi, yi)
+        result.append(s)
+    print("\n".join(result))
+
+
 def plot_distance(x, y):
     x_range = np.linspace(x[0], x[-1], 100)
     popt, pcov = curve_fit(inv_r_squared, x, y)
@@ -46,7 +54,7 @@ def plot_divergence(x, y):
     print(popt)
     fig, ax = plt.subplots()
     ax.grid(True, which='both')
-    plt.plot(x_range, inv_r_squared(x_range, *popt), "g--")
+    # plt.plot(x_range, inv_r_squared(x_range, *popt), "g--")
     plt.plot(x, y, ".")
     plt.xlabel("Расходимость источника излучения, ${}^\\circ$")
     plt.ylabel("Оптическая мощность на фотодиоде, Вт")
@@ -77,7 +85,8 @@ def main():
 
     # plot_distance(distance_x, distance_power)
     # plot_divergence(divergence_x, divergence_power)
-    plot_lens(lens_x, lens_power)
+    # plot_lens(lens_x, lens_power)
+    create_table(lens_x, lens_power)
 
 
 if __name__ == "__main__":
