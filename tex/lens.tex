@@ -1,0 +1,36 @@
+% This file was created by tikzplotlib v0.9.8.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
+
+\begin{axis}[
+tick align=outside,
+tick pos=left,
+x grid style={white!69.0196078431373!black},
+xlabel={Расстояние от линзы до фотодиода, мм},
+xmajorgrids,
+xmin=3.25, xmax=41.75,
+xminorgrids,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ylabel={Оптическая мощность на фотодиоде, Вт},
+ymajorgrids,
+ymin=-9.571565e-05, ymax=0.00202646265,
+yminorgrids,
+ytick style={color=black}
+]
+\addplot [semithick, color0, mark=*, mark size=3, mark options={solid}, only marks]
+table {%
+5 7.47e-07
+10 1.66e-06
+15 0.00035
+15.86 0.00193
+20 0.000437
+25 3.32e-05
+30 7.06e-06
+35 3.52e-06
+40 2.3e-06
+};
+\end{axis}
+
+\end{tikzpicture}

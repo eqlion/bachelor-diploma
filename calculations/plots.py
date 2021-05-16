@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import numpy as np
+import tikzplotlib
 
 # x_data = [(i+1)*100 for i in range(5)]
 # print(x_data)
@@ -36,16 +37,19 @@ def create_table(x, y):
 
 
 def plot_distance(x, y):
-    x_range = np.linspace(x[0], x[-1], 100)
-    popt, pcov = curve_fit(inv_r_squared, x, y)
-    print(popt)
+    x_range = np.linspace(.1, 100, 100)
+    popt, pcov = curve_fit(inv_r_squared, x[:5], y[:5])
+    # print(popt)
     fig, ax = plt.subplots()
+    # \frac{0.615}{(x+1.639) ^ 2} - 2.049\cdot10 ^ {-4}
+
     ax.grid(True, which='both')
     plt.plot(x_range, inv_r_squared(x_range, *popt), "g--")
-    plt.plot(x, y, ".")
+    plt.plot(x[:5], y[:5], ".")
     plt.xlabel("Расстояние от источника до фотодиода, мм")
     plt.ylabel("Оптическая мощность на фотодиоде, Вт")
     plt.show()
+    # tikzplotlib.save("distance.tex")
 
 
 def plot_divergence(x, y):
@@ -58,7 +62,8 @@ def plot_divergence(x, y):
     plt.plot(x, y, ".")
     plt.xlabel("Расходимость источника излучения, ${}^\\circ$")
     plt.ylabel("Оптическая мощность на фотодиоде, Вт")
-    plt.show()
+    # plt.show()
+    tikzplotlib.save("divergence.tex")
 
 
 def plot_lens(x, y):
@@ -67,7 +72,8 @@ def plot_lens(x, y):
     plt.plot(x, y, ".")
     plt.xlabel("Расстояние от линзы до фотодиода, мм")
     plt.ylabel("Оптическая мощность на фотодиоде, Вт")
-    plt.show()
+    # plt.show()
+    tikzplotlib.save("lens.tex")
 
 
 def main():
@@ -83,10 +89,10 @@ def main():
     lens_power = [7.47e-7, 1.66e-6, 3.5e-4, 1.93e-3,
                   4.37e-4, 3.32e-5, 7.06e-6, 3.52e-6, 2.3e-6]
 
-    # plot_distance(distance_x, distance_power)
+    plot_distance(distance_x, distance_power)
     # plot_divergence(divergence_x, divergence_power)
     # plot_lens(lens_x, lens_power)
-    create_table(lens_x, lens_power)
+    # create_table(lens_x, lens_power)
 
 
 if __name__ == "__main__":

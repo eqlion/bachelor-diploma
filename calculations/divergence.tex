@@ -1,0 +1,40 @@
+% This file was created by tikzplotlib v0.9.8.
+\begin{tikzpicture}
+
+\definecolor{color0}{rgb}{0.12156862745098,0.466666666666667,0.705882352941177}
+
+\begin{axis}[
+tick align=outside,
+tick pos=left,
+x grid style={white!69.0196078431373!black},
+xlabel={Расходимость источника излучения, \(\displaystyle {}^\circ\)},
+xmajorgrids,
+xmin=-0.45, xmax=31.45,
+xminorgrids,
+xtick style={color=black},
+y grid style={white!69.0196078431373!black},
+ylabel={Оптическая мощность на фотодиоде, Вт},
+ymajorgrids,
+ymin=-0.00056135, ymax=0.01207435,
+yminorgrids,
+ytick style={color=black}
+]
+\addplot [semithick, color0, mark=*, mark size=3, mark options={solid}, only marks]
+table {%
+1 0.0115
+3 0.00131
+5 0.00047
+8 0.000188
+10 0.00012
+13 7.4e-05
+15 5.26e-05
+18 3.38e-05
+20 2.78e-05
+23 2.3e-05
+25 1.9e-05
+28 1.47e-05
+30 1.3e-05
+};
+\end{axis}
+
+\end{tikzpicture}

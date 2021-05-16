@@ -32,7 +32,15 @@ citecolor=black, menucolor=black, filecolor=black,
 
 % Пакет Tikz
 \usepackage{tikz}
-\usetikzlibrary{arrows,positioning,shadows}
+% \usetikzlibrary{arrows,positioning,shadows}
+\usepackage[utf8]{inputenc}
+\usepackage{pgfplots}
+% \DeclareUnicodeCharacter{2212}{−}
+\usepgfplotslibrary{groupplots,dateplot}
+\usetikzlibrary{patterns,shapes.arrows}
+\pgfplotsset{compat=newest}
+\pgfkeys{/pgf/number format/.cd,1000 sep={\,}}
+
 
 % Произвольная нумерация списков.
 \usepackage{enumerate}
