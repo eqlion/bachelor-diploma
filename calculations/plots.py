@@ -37,15 +37,22 @@ def create_table(x, y):
 
 
 def plot_distance(x, y):
-    x_range = np.linspace(.1, 100, 100)
-    popt, pcov = curve_fit(inv_r_squared, x[:5], y[:5])
+    x_range = np.linspace(.1,2000, 100)
+    popt, pcov = curve_fit(inv_r_squared, x, y)
     # print(popt)
     fig, ax = plt.subplots()
     # \frac{0.615}{(x+1.639) ^ 2} - 2.049\cdot10 ^ {-4}
 
     ax.grid(True, which='both')
+    plt.rc("font", size=22)
+    plt.rc('axes', titlesize=22)     # fontsize of the axes title
+    plt.rc('axes', labelsize=22)    # fontsize of the x and y labels
+    plt.rc('xtick', labelsize=22)    # fontsize of the tick labels
+    plt.rc('ytick', labelsize=22)    # fontsize of the tick labels
+    plt.rc('legend', fontsize=22)    # legend fontsize
+    plt.rc('figure', titlesize=22)  
     plt.plot(x_range, inv_r_squared(x_range, *popt), "g--")
-    plt.plot(x[:5], y[:5], ".")
+    plt.plot(x, y, ".")
     plt.xlabel("Расстояние от источника до фотодиода, мм")
     plt.ylabel("Оптическая мощность на фотодиоде, Вт")
     plt.show()
@@ -67,6 +74,13 @@ def plot_divergence(x, y):
 
 
 def plot_lens(x, y):
+    plt.rc("font", size=22)
+    plt.rc('axes', titlesize=22)     # fontsize of the axes title
+    plt.rc('axes', labelsize=22)    # fontsize of the x and y labels
+    plt.rc('xtick', labelsize=22)    # fontsize of the tick labels
+    plt.rc('ytick', labelsize=22)    # fontsize of the tick labels
+    plt.rc('legend', fontsize=22)    # legend fontsize
+    plt.rc('figure', titlesize=22)  
     fig, ax = plt.subplots()
     ax.grid(True, which='both')
     plt.plot(x, y, ".")
@@ -89,9 +103,9 @@ def main():
     lens_power = [7.47e-7, 1.66e-6, 3.5e-4, 1.93e-3,
                   4.37e-4, 3.32e-5, 7.06e-6, 3.52e-6, 2.3e-6]
 
-    plot_distance(distance_x, distance_power)
+    # plot_distance(distance_x, distance_power)
     # plot_divergence(divergence_x, divergence_power)
-    # plot_lens(lens_x, lens_power)
+    plot_lens(lens_x, lens_power)
     # create_table(lens_x, lens_power)
 
 
