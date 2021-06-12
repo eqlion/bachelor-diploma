@@ -2,7 +2,7 @@
 
 Используется [этот tex шаблон](https://github.com/latex-g7-32/latex-g7-32) и [этот репозиторий](https://github.com/OsipXD/miet-thesis) с небольшими изменениями
 
-[Результат](https://github.com/eqlion/bachelor-diploma/blob/main/build/main.pdf)
+Результаты находятся в папке `documents`: преддипломная практика `PRACTICE.pdf`, сама ВКР `THESIS.pdf` и презентация к защите `PRESENTATION.pdf`. Оценка за ВКР — отлично.
 
 ## Установка
 
